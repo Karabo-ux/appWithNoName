@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Worker Profile</title>
+  <link rel="stylesheet" href="styles.css">
+ 
+</head>
+<body>
+      
+
+  <div class="container">
+    <h2>Create Worker Profile</h2>
+    <form id="workerForm">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+      </div>
+
+      <div class="form-group" >
+  <label for="profession">Profession</label>
+  <select id="profession" required >
+    <option value="">Select Profession</option>
+    <option value="Plumber">🚰 Plumber</option>
+    <option value="Electrician">⚡ Electrician</option>
+    <option value="Carpenter">🪚 Carpenter</option>
+    <option value="Painter">🎨 Painter</option>
+    <option value="Tiler">🧱 Tiler</option>
+    <option value="Roofer">🏠 Roofer</option>
+    <option value="Welder">🔧 Welder</option>
+    <option value="Bricklayer">🧱 Bricklayer</option>
+    <option value="General Handyman">🛠️ General Handyman</option>
+  </select>
+</div>
+
+
+      <div class="form-group">
+        <label for="bio">Bio</label>
+        <textarea id="bio" rows="3" placeholder="Tell us about your skills and experience..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="location" class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 pulse-green placeholder-green-600 font-semibold text-center shadow-sm">Location</label>
+        <input type="text" id="location" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact">Contact (Phone or Email)</label>
+        <input type="text" id="contact" required>
+      </div>
+
+      <div class="form-group">
+        <label for="proof">Upload Proof of Work (images)</label>
+        <input type="file" id="proof" multiple accept="image/*">
+      </div>
+
+        <div class="form-group">
+        <label for="profilePic">Profile Picture</label>
+        <input type="file" id="profilePic" accept="image/*">
+        <img id="profilePreview" />
+      </div>
+
+      <button type="submit">Submit Profile</button>
+    </form>
+  </div>
+
+ 
+</body>
+ <script src="index.js"></script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <title>Find Skilled Workers</title>
+  <link rel="stylesheet" href="client.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js"></script>
+</head>
+<body class="bg-gradient-to-tr from-green-50 to-green-100 min-h-screen flex items-center justify-center p-6">
+
+
+     <!-- Intro explanation -->
+   <div class="flex flex-col items-center gap-0 max-w-3xl mx-auto"> 
+    <div class="mb-10 max-w-3xl mx-auto text-center text-green-700 text-lg leading-relaxed">
+      <p class="mb-4">
+        Welcome! Use the search below to find skilled workers in your area — whether you need a plumber, electrician, carpenter, or painter.
+      </p>
+      <p class="mb-2">
+        Just enter your location and select the profession you're looking for. The list will update instantly with available workers near you.
+      </p>
+      <p class="font-semibold">
+        Once you find someone you like, contact them directly via the phone number provided. Simple, fast, and reliable!
+      </p>
+    </div>
+
+<div class="flex flex-col space-y-6 max-w-md mx-auto">
+      <input
+        type="text"
+        id="searchLocation"
+        placeholder="Enter location..."
+        class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 pulse-green placeholder-green-600 font-semibold text-center shadow-sm"
+      />
+      <select
+        id="searchProfession"
+        class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 pulse-green font-semibold text-lg shadow-sm"
+      >
+        <option value="">All Professions</option>
+        <option value="Plumber">🚰 Plumber</option>
+        <option value="Electrician">⚡ Electrician</option>
+        <option value="Carpenter">🪚 Carpenter</option>
+        <option value="Painter">🎨 Painter</option>
+      </select>
+    </div>
+    </div>  
+
+    <div id="workerResults" class="space-y-8 mt-10"></div>
+  </div>
+
+
+
+</body>
+</html>

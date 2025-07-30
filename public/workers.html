@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Browse Skilled Workers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 text-gray-800">
+
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold text-center mb-10 text-green-700">Available Skilled Workers</h2>
+
+    <div id="workerList" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <!-- Worker cards will be injected here -->
+    </div>
+  </div>
+
+  <script>
+    async function fetchWorkers() {
+      const workerList = document.getElementById('workerList');
+      workerList.innerHTML = `<p class="text-center col-span-full text-gray-600">Loading...</p>`;
+
+      try {
+        const res = await fetch('http://localhost:5000/api/workers');
+        const workers = await res.json();
+
+        if (workers.length === 0) {
+          workerList.innerHTML = `<p class="text-center col-span-full text-gray-600">No workers found.</p>`;
+          return;
+        }
+
+        workerList.innerHTML = workers.map(worker => `
+          <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+            <img class="w-24 h-24 mx-auto mb-4 rounded-full object-cover border-4 border-green-200" src="${worker.profilePicUrl}" alt="${worker.name}">
+            <h3 class="text-xl font-semibold text-center">${worker.name}</h3>
+            <p class="text-center text-green-700 font-medium">${worker.profession}</p>
+            <p class="text-center text-gray-500">${worker.location}</p>
+            <div class="mt-4 text-center">
+              <a href="profile.html?id=${worker._id}" class="text-green-600 font-semibold hover:underline">View Profile</a>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error('Error fetching workers:', err);
+        workerList.innerHTML = `<p class="text-center col-span-full text-red-500">Error loading worker list.</p>`;
+      }
+    }
+
+    fetchWorkers();
+  </script>
+</body>
+</html>

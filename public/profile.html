@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Worker Profile</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Worker Profile</h2>
+    <div id="profileDetails">Loading...</div>
+  </div>
+
+  <script>
+  async function loadProfile() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    const detailEl = document.getElementById('profileDetails');
+
+    if (!id) {
+      detailEl.innerText = "Missing worker ID.";
+      return;
+    }
+
+    console.log("Fetching worker with ID:", id); // 🧠 debug
+
+    try {
+      const res = await fetch(`http://localhost:5000/api/workers/${id}`);
+      console.log("Response status:", res.status);
+
+      if (!res.ok) {
+        detailEl.innerText = "Worker not found.";
+        return;
+      }
+
+      const worker = await res.json();
+
+      const html = `
+        <h3>${worker.name}</h3>
+        <p><strong>Profession:</strong> ${worker.profession}</p>
+        <p><strong>Location:</strong> ${worker.location}</p>
+        <p><strong>Contact:</strong> ${worker.contact}</p>
+        <p><strong>Bio:</strong> ${worker.bio}</p>
+        <img src="${worker.profilePicUrl}" width="150" alt="Profile Picture" />
+        <h4>Proof of Work:</h4>
+        ${worker.proofs.map(url => `<img src="${url}" width="150" style="margin-right:10px;" />`).join('')}
+      `;
+      detailEl.innerHTML = html;
+
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+      detailEl.innerText = "Error loading profile.";
+    }
+  }
+
+  loadProfile();
+</script>
+
+</body>
+</html>
