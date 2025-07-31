@@ -2,17 +2,42 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Find Skilled Workers</title>
-  <link rel="stylesheet" href="client.css">
+  
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </head>
-<body class="bg-gradient-to-tr from-green-50 to-green-100 min-h-screen flex items-center justify-center p-6">
+<body class="bg-gradient-to-tr from-green-50 to-green-100 min-h-screen flex flex-col">
 
+  <!-- Navbar -->
+  <nav class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="flex items-center space-x-2">
+          <div class="w-6 h-6 bg-green-600 rounded-sm"></div>
+          <span class="text-xl font-semibold text-green-700">Suluhisho Group</span>
+        </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-green-800 hover:text-green-600">Home</a>
+          <a href="about.html" class="text-green-800 hover:text-green-600">About</a>
+          <a href="#services" class="text-green-800 hover:text-green-600">Services</a>
+          <a href="#how" class="text-green-800 hover:text-green-600">How It Works</a>
+          <a href="#connect" class="text-green-800 hover:text-green-600">Connect</a>
+          <a href="#contact" class="text-green-800 hover:text-green-600">Contact</a>
+        </div>
+        <div>
+          <a href="tel:0711616951" class="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition">
+            Call Now 0711616951
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-     <!-- Intro explanation -->
-   <div class="flex flex-col items-center gap-0 max-w-3xl mx-auto"> 
-    <div class="mb-10 max-w-3xl mx-auto text-center text-green-700 text-lg leading-relaxed">
+  <!-- Main Content -->
+  <main class="flex-grow w-full px-4 py-10">
+    <div class="max-w-3xl mx-auto text-center text-green-700 text-lg leading-relaxed">
       <p class="mb-4">
         Welcome! Use the search below to find skilled workers in your area — whether you need a plumber, electrician, carpenter, or painter.
       </p>
@@ -24,16 +49,17 @@
       </p>
     </div>
 
-<div class="flex flex-col space-y-6 max-w-md mx-auto">
+    <!-- Search Inputs -->
+    <div class="flex flex-col space-y-6 max-w-md mx-auto mt-10">
       <input
         type="text"
         id="searchLocation"
         placeholder="Enter location..."
-        class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 pulse-green placeholder-green-600 font-semibold text-center shadow-sm"
+        class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 placeholder-green-600 font-semibold text-center shadow-sm"
       />
       <select
         id="searchProfession"
-        class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 pulse-green font-semibold text-lg shadow-sm"
+        class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 font-semibold text-lg shadow-sm"
       >
         <option value="">All Professions</option>
         <option value="Plumber">🚰 Plumber</option>
@@ -42,12 +68,17 @@
         <option value="Painter">🎨 Painter</option>
       </select>
     </div>
-    </div>  
+    <!-- Worker Results -->
+    <div id="workerResults" class="space-y-8 mt-12 px-4 sm:px-0 max-w-3xl mx-auto">
+      <!-- Cards will be inserted here via script.js -->
+    </div>
+  </main>
 
-    <div id="workerResults" class="space-y-8 mt-10"></div>
-  </div>
-
-
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white text-center py-6">
+    <p>&copy; 2025 Suluhisho Solutions. All rights reserved.</p>
+    <p>📞 071-161-6951 | 📧 info@suluhisho.co.za</p>
+  </footer>
 
 </body>
 </html>
