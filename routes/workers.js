@@ -1,20 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const Worker = require('../models/worker');
+const Worker = require('../models/Worker'); // Check path and capitalization
 
-// GET workers by location and profession
 router.get('/', async (req, res) => {
-  const { location, profession } = req.query;
-
-  let filter = {};
-  if (location) filter.location = new RegExp(location, 'i');
-  if (profession) filter.profession = profession;
-
+  const { location, skill } = req.query;
   try {
+    const filter = {};
+    if (location) filter.location = { $regex: location, $options: 'i' };
+    if (skill) filter.skill = { $regex: skill, $options: 'i' };
     const workers = await Worker.find(filter);
     res.json(workers);
-  } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+  } catch (error) {
+    console.error('Error fetching workers:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
