@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Worker = require('../models/Worker'); // Check path and capitalization
+const Worker = require('../models/worker'); // Check path and capitalization
 
 router.get('/', async (req, res) => {
   const { location, skill } = req.query;
