@@ -52,3 +52,24 @@ document.getElementById('workerForm').addEventListener('submit', function (e) {
   document.getElementById('workerForm').reset();
   document.getElementById('profilePreview').src = '';
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("searchForm");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const profession = document.getElementById("searchProfession").value.trim();
+    const location = document.getElementById("searchLocation").value.trim();
+
+    if (!profession || !location) {
+      alert("Please select both a profession and location.");
+      return;
+    }
+
+    // Redirect with query parameters
+    const redirectUrl = `results.html?profession=${encodeURIComponent(profession)}&location=${encodeURIComponent(location)}`;
+    window.location.href = redirectUrl;
+  });
+});
