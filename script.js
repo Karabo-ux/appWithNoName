@@ -107,3 +107,57 @@ document.addEventListener("DOMContentLoaded", () => {
   locationInput.addEventListener("input", fetchWorkers);
   professionSelect.addEventListener("change", fetchWorkers);
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const locationInput = document.getElementById('searchLocation');
+  const skillSelect = document.getElementById('searchProfession');
+  const workerResults = document.getElementById('workerResults');
+
+  // Create a submit button dynamically or you can add it in your HTML if you haven't
+  const submitBtn = document.createElement('button');
+  submitBtn.textContent = 'Search';
+  submitBtn.className = 'bg-green-600 text-white rounded-xl px-5 py-3 font-semibold hover:bg-green-700 transition';
+  submitBtn.type = 'button';
+
+  // Insert submit button below inputs (assuming inputs are wrapped in a container)
+  const inputsContainer = locationInput.parentElement;
+  inputsContainer.appendChild(submitBtn);
+
+  submitBtn.addEventListener('click', async () => {
+    const location = locationInput.value.trim();
+    const skill = skillSelect.value;
+
+    // Clear previous results
+    workerResults.innerHTML = '<p class="text-green-700 font-semibold">Loading...</p>';
+
+    try {
+      const query = new URLSearchParams();
+      if(location) query.append('location', location);
+      if(skill) query.append('skill', skill);
+
+      const response = await fetch(`/workers?${query.toString()}`);
+      if (!response.ok) throw new Error('Network response was not ok');
+
+      const workers = await response.json();
+
+      if (workers.length === 0) {
+        workerResults.innerHTML = '<p class="text-green-700 font-semibold">No workers found for the specified criteria.</p>';
+        return;
+      }
+
+      // Render worker cards
+      workerResults.innerHTML = workers.map(worker => `
+        <div class="border border-green-300 rounded-lg p-4 shadow-sm bg-white">
+          <h4 class="text-lg font-bold text-green-700 mb-1">${worker.name}</h4>
+          <p><strong>Skill:</strong> ${worker.skill}</p>
+          <p><strong>Location:</strong> ${worker.location}</p>
+          <p><strong>Contact:</strong> <a href="tel:${worker.phone}" class="text-green-600 hover:underline">${worker.phone}</a></p>
+        </div>
+      `).join('');
+
+    } catch (error) {
+      console.error('Error fetching workers:', error);
+      workerResults.innerHTML = '<p class="text-red-600 font-semibold">Failed to load workers. Please try again later.</p>';
+    }
+  });
+});
