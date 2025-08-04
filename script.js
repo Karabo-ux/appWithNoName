@@ -73,3 +73,37 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = redirectUrl;
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const locationInput = document.getElementById("searchLocation");
+  const professionSelect = document.getElementById("searchProfession");
+  const resultsDiv = document.getElementById("workerResults");
+
+  async function fetchWorkers() {
+    const location = locationInput.value.trim();
+    const profession = professionSelect.value;
+
+    let query = `?`;
+    if (location) query += `location=${encodeURIComponent(location)}&`;
+    if (profession) query += `profession=${encodeURIComponent(profession)}`;
+
+    const res = await fetch(`/api/workers${query}`);
+    const data = await res.json();
+
+    resultsDiv.innerHTML = data.length
+      ? data.map(worker => `
+          <div class="bg-white shadow p-4 rounded">
+            <h3 class="text-xl font-bold text-green-700">${worker.name}</h3>
+            <p><strong>Profession:</strong> ${worker.profession}</p>
+            <p><strong>Location:</strong> ${worker.location}</p>
+            <p><strong>Contact:</strong> ${worker.contact}</p>
+            <p><strong>Bio:</strong> ${worker.bio}</p>
+            <img src="${worker.profilePicUrl}" class="w-32 mt-2 rounded shadow" />
+          </div>
+        `).join("")
+      : `<p class="text-gray-600 text-center">No workers found for that criteria.</p>`;
+  }
+
+  locationInput.addEventListener("input", fetchWorkers);
+  professionSelect.addEventListener("change", fetchWorkers);
+});
