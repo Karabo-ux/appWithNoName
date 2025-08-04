@@ -16,7 +16,10 @@
       <div class="flex justify-between h-16 items-center">
         <div class="flex items-center space-x-2">
           <div class="w-6 h-6 bg-green-600 rounded-sm"></div>
-          <span class="text-xl font-semibold text-green-700"><a href="index.html">Suluhisho Group</a></span>
+         <a href="index.html">
+  <span class="text-xl font-semibold text-green-700">Suluhisho Group</span>
+</a>
+
         </div>
         <div class="hidden md:flex space-x-8">
           <a href="index.html" class="text-green-800 hover:text-green-600">Home</a>
@@ -50,24 +53,40 @@
     </div>
 
     <!-- Search Inputs -->
-    <div class="flex flex-col space-y-6 max-w-md mx-auto mt-10">
-      <input
-        type="text"
-        id="searchLocation"
-        placeholder="Enter location..."
-        class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 placeholder-green-600 font-semibold text-center shadow-sm"
-      />
-      <select
-        id="searchProfession"
-        class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 font-semibold text-lg shadow-sm"
-      >
-        <option value="">All Professions</option>
-        <option value="Plumber">🚰 Plumber</option>
-        <option value="Electrician">⚡ Electrician</option>
-        <option value="Carpenter">🪚 Carpenter</option>
-        <option value="Painter">🎨 Painter</option>
-      </select>
-    </div>
+<!-- Search Inputs -->
+<form id="searchForm" class="flex flex-col space-y-6 max-w-md mx-auto mt-10">
+  <input
+    type="text"
+    id="searchLocation"
+    name="location"
+    placeholder="Enter location..."
+    class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 placeholder-green-600 font-semibold text-center shadow-sm"
+    required
+  />
+  <select
+    id="searchProfession"
+    name="profession"
+    class="border-2 border-green-400 rounded-xl px-5 py-3 focus:outline-none focus:ring-4 focus:ring-green-300 font-semibold text-lg shadow-sm"
+    required
+  ><option value="">Select Profession</option>
+          <option value="Plumber">🚰 Plumber</option>
+          <option value="Electrician">⚡ Electrician</option>
+          <option value="Carpenter">🪚 Carpenter</option>
+          <option value="Painter">🎨 Painter</option>
+          <option value="Tiler">🧱 Tiler</option>
+          <option value="Roofer">🏠 Roofer</option>
+          <option value="Welder">🔧 Welder</option>
+          <option value="Bricklayer">🧱 Bricklayer</option>
+          <option value="General Handyman">🛠️ General Handyman</option>
+  </select>
+  <button
+    type="submit"
+    class="bg-green-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-green-700 transition"
+  >
+    Find Workers
+  </button>
+</form>
+
     <!-- Worker Results -->
     <div id="workerResults" class="space-y-8 mt-12 px-4 sm:px-0 max-w-3xl mx-auto">
       <!-- Cards will be inserted here via script.js -->
