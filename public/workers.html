@@ -21,7 +21,10 @@
       workerList.innerHTML = `<p class="text-center col-span-full text-gray-600">Loading...</p>`;
 
       try {
-        const res = await fetch('http://localhost:5000/api/workers');
+        const API_BASE = window.location.origin;
+const res = await fetch(`${API_BASE}/api/workers`);
+
+
         const workers = await res.json();
 
         if (workers.length === 0) {
