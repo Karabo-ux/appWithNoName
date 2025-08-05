@@ -1,54 +1,33 @@
-const form = document.getElementById('workerForm');
-console.log("Script loaded");
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('workerForm');
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  console.log("Form submitted");
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-  const name = document.getElementById('name').value;
-  const profession = document.getElementById('profession').value;
-  const bio = document.getElementById('bio').value;
-  const location = document.getElementById('location').value;
-  const contact = document.getElementById('contact').value;
+    const workerData = {
+      name: document.getElementById('name').value,
+      profession: document.getElementById('profession').value,
+      location: document.getElementById('location').value,
+      bio: document.getElementById('bio').value,
+      contact: document.getElementById('contact').value
+    };
 
-  const profilePicUrl = "https://via.placeholder.com/150";
-  const proofs = [
-    "https://via.placeholder.com/200",
-    "https://via.placeholder.com/201"
-  ];
+    try {
+      const res = await fetch('/api/workers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(workerData)
+      });
 
-  const data = {
-    name,
-    profession,
-    bio,
-    location,
-    contact,
-    profilePicUrl,
-    proofs
-  };
+      if (!res.ok) throw new Error('Failed to submit');
 
-  console.log("Sending data:", data);
-
-  try {
-    const response = await fetch('http://localhost:5000/api/workers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-
-    const result = await response.json();
-    console.log("Response:", result);
-
-    if (response.ok) {
       alert('Profile submitted successfully!');
       form.reset();
-    } else {
-      alert('Something went wrong.');
+    } catch (err) {
+      console.error('Submit error:', err);
+      alert('Submission failed. Check the console.');
     }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Failed to submit profile. Check console for details.');
-  }
+  });
 });
