@@ -16,40 +16,46 @@
   </div>
 
   <script>
-    async function fetchWorkers() {
-      const workerList = document.getElementById('workerList');
-      workerList.innerHTML = `<p class="text-center col-span-full text-gray-600">Loading...</p>`;
+  async function fetchWorkers() {
+    const workerList = document.getElementById('workerList');
+    workerList.innerHTML = `<p class="text-center col-span-full text-gray-600">Loading...</p>`;
 
-      try {
-        const API_BASE = window.location.origin;
-const res = await fetch(`${API_BASE}/api/workers`);
+    // ✅ Get query params
+    const params = new URLSearchParams(window.location.search);
+    const location = params.get('location') || '';
+    const profession = params.get('profession') || '';
 
+    try {
+      // ✅ Send them in the request
+      const res = await fetch(`/api/workers?location=${encodeURIComponent(location)}&profession=${encodeURIComponent(profession)}`);
+      const workers = await res.json();
 
-        const workers = await res.json();
-
-        if (workers.length === 0) {
-          workerList.innerHTML = `<p class="text-center col-span-full text-gray-600">No workers found.</p>`;
-          return;
-        }
-
-        workerList.innerHTML = workers.map(worker => `
-          <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
-            <img class="w-24 h-24 mx-auto mb-4 rounded-full object-cover border-4 border-green-200" src="${worker.profilePicUrl}" alt="${worker.name}">
-            <h3 class="text-xl font-semibold text-center">${worker.name}</h3>
-            <p class="text-center text-green-700 font-medium">${worker.profession}</p>
-            <p class="text-center text-gray-500">${worker.location}</p>
-            <div class="mt-4 text-center">
-              <a href="profile.html?id=${worker._id}" class="text-green-600 font-semibold hover:underline">View Profile</a>
-            </div>
-          </div>
-        `).join('');
-      } catch (err) {
-        console.error('Error fetching workers:', err);
-        workerList.innerHTML = `<p class="text-center col-span-full text-red-500">Error loading worker list.</p>`;
+      if (workers.length === 0) {
+        workerList.innerHTML = `<p class="text-center col-span-full text-gray-600">No workers found for "${profession}" in "${location}".</p>`;
+        return;
       }
-    }
 
-    fetchWorkers();
-  </script>
+      workerList.innerHTML = workers.map(worker => `
+        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+          <div class="w-24 h-24 mx-auto mb-4 rounded-full object-cover border-4 border-green-200 bg-green-100 flex items-center justify-center text-2xl font-bold text-green-600">
+            ${worker.name[0]}
+          </div>
+          <h3 class="text-xl font-semibold text-center">${worker.name}</h3>
+          <p class="text-center text-green-700 font-medium">${worker.profession}</p>
+          <p class="text-center text-gray-500">${worker.location}</p>
+          <div class="mt-4 text-center">
+            <a href="profile.html?id=${worker._id}" class="text-green-600 font-semibold hover:underline">View Profile</a>
+          </div>
+        </div>
+      `).join('');
+    } catch (err) {
+      console.error('Error fetching workers:', err);
+      workerList.innerHTML = `<p class="text-center col-span-full text-red-500">Error loading worker list.</p>`;
+    }
+  }
+
+  fetchWorkers();
+</script>
+
 </body>
 </html>
