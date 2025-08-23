@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!res.ok) throw new Error('Failed to submit');
 
-      alert('Profile submitted successfully!');
+      // alert('Profile submitted successfully!');
       form.reset();
     } catch (err) {
       console.error('Submit error:', err);
